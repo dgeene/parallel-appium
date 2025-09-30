@@ -1,6 +1,6 @@
 # Makefile for Parallel Appium Hub
 
-.PHONY: help install install-dev clean test test-parallel start-hub stop-hub lint format check
+.PHONY: help install install-dev clean test test-parallel start-hub stop-hub lint format check verify
 
 # Default target
 help:
@@ -8,6 +8,7 @@ help:
 	@echo "  install      - Install the package and dependencies"
 	@echo "  install-dev  - Install with development dependencies"
 	@echo "  clean        - Clean up build artifacts and logs"
+	@echo "  verify       - Verify setup and dependencies"
 	@echo "  test         - Run tests"
 	@echo "  test-parallel - Run tests in parallel (4 workers)"
 	@echo "  start-hub    - Start the Appium hub"
@@ -33,6 +34,10 @@ clean:
 	rm -rf __pycache__/
 	find . -name "*.pyc" -delete
 	find . -name "__pycache__" -delete
+
+# Verification
+verify:
+	python verify_setup.py
 
 # Testing
 test:
@@ -77,4 +82,4 @@ setup-dev: install-dev
 	mkdir -p logs
 	cp config.env.example config.env
 	@echo "Development environment setup complete!"
-	@echo "Edit config.env as needed, then run 'make start-hub'"
+	@echo "Edit config.env as needed, then run 'make verify' to test setup"

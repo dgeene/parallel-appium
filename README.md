@@ -31,25 +31,45 @@ An Appium server gateway hub that manages multiple Appium server processes for p
 
 ## Installation
 
+### Prerequisites
+
+1. **Node.js and npm** (for Appium server):
+   ```bash
+   # Install Node.js (version 14 or higher)
+   # Visit https://nodejs.org/ or use a package manager
+   ```
+
+2. **Appium server** (required - this project manages Appium server processes):
+   ```bash
+   npm install -g appium
+
+   # Install Appium drivers (example for Android)
+   appium driver install uiautomator2
+
+   # For iOS (if needed)
+   appium driver install xcuitest
+
+   # Verify installation
+   appium --version
+   ```
+
+### Install the Hub
+
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
    cd parallel-appim
    ```
 
-2. **Install dependencies:**
+2. **Install Python dependencies:**
    ```bash
    pip install -e .
    ```
 
-3. **Install Appium server** (if not already installed):
+3. **Verify Appium is accessible:**
    ```bash
-   npm install -g appium
-   ```
-
-4. **Install Appium drivers** (example for Android):
-   ```bash
-   appium driver install uiautomator2
+   which appium  # Should show the path to appium executable
+   appium --version  # Should show version number
    ```
 
 ## Quick Start
@@ -253,21 +273,38 @@ curl http://localhost:4444/sessions
 
 ### Common Issues
 
-1. **Port conflicts:**
+1. **Appium command not found:**
+   ```bash
+   # Error: appium: command not found
+   # Solution: Install Appium globally
+   npm install -g appium
+
+   # Add npm global bin to PATH if needed
+   export PATH="$(npm bin -g):$PATH"
+   ```
+
+2. **Port conflicts:**
    - Ensure the Appium port range doesn't conflict with other services
    - Check that ports are available: `netstat -an | grep 4723`
 
-2. **Session timeout:**
+3. **Session timeout:**
    - Increase `SESSION_TIMEOUT` if tests take longer than 30 minutes
    - Monitor session usage with `/sessions` endpoint
 
-3. **Log file permissions:**
+4. **Log file permissions:**
    - Ensure the log directory is writable
    - Check disk space for log files
 
-4. **Appium server startup failures:**
+5. **Appium server startup failures:**
    - Verify Appium is installed: `appium --version`
    - Check individual session logs in the logs directory
+   - Ensure required drivers are installed: `appium driver list`
+
+6. **Permission denied errors:**
+   ```bash
+   # On macOS/Linux, you might need to make the script executable
+   chmod +x start_hub.py
+   ```
 
 ### Debug Mode
 
