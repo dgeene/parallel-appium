@@ -17,5 +17,14 @@
                 "--udid=26131JEGR16239"
             ]
         },
+        {
+            "name": "test_gateway",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "start_hub",
+            "justMyCode": false,
+            "args": [
+            ]
+        },
     ]
 }

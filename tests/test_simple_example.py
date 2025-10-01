@@ -22,16 +22,18 @@ def udid(request):
 @pytest.fixture
 def basic_android_caps(udid):
     """Basic Android capabilities for testing"""
-    return {
+    caps =  {
         "platformName": "Android",
-        "automationName": "UiAutomator2",
-        "udid": udid,
-        "deviceName": "Android Realdevice",
-        "appPackage": "com.android.settings",  # Using Settings app as it's always available
-        "appActivity": ".Settings",
-        "noReset": True,
-        "newCommandTimeout": 300
+        "appium:automationName": "UiAutomator2",
+        "appium:udid": udid,
+        "appium:deviceName": "Android Realdevice",
+        "appium:appPackage": "com.android.settings",  # Using Settings app as it's always available
+        "appium:appActivity": ".Settings",
+        "appium:noReset": True,
+        "appium:newCommandTimeout": 300
     }
+    #opts = UiAutomator2Options()
+    return caps #opts.load_capabilities(caps)
 
 
 class TestBasicHub:
