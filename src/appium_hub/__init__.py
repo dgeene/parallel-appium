@@ -11,10 +11,10 @@ from .config import HubConfig, DEFAULT_CONFIG
 __version__ = "1.0.0"
 __all__ = [
     "AppiumHub",
-    "SessionPool", 
+    "SessionPool",
     "AppiumServerManager",
     "AppiumGateway",
     "HubConfig",
     "DEFAULT_CONFIG",
-    "main"
+    "main",
 ]

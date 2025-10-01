@@ -1,20 +1,26 @@
 """
 Pytest configuration for parallel Appium testing
 """
+
 import pytest
 import os
 
+
 def pytest_addoption(parser):
     parser.addoption(
-        "--udid", action="store", default="26131JEGR16239", help="The UDID of the device to test on"
+        "--udid",
+        action="store",
+        default="26131JEGR16239",
+        help="The UDID of the device to test on",
     )
+
 
 def pytest_configure(config):
     """Configure pytest for parallel execution"""
     # Set worker ID for parallel execution
-    worker_id = getattr(config, 'workerinput', {}).get('workerid', 'master')
+    worker_id = getattr(config, "workerinput", {}).get("workerid", "master")
     pytest.current_pytest_worker_id = worker_id
-    
+
     # Add custom markers
     config.addinivalue_line("markers", "slow: marks tests as slow")
     config.addinivalue_line("markers", "integration: marks tests as integration tests")
@@ -25,7 +31,7 @@ def pytest_configure(config):
 @pytest.fixture(scope="session")
 def worker_id():
     """Get the current worker ID"""
-    return getattr(pytest, 'current_pytest_worker_id', 'master')
+    return getattr(pytest, "current_pytest_worker_id", "master")
 
 
 @pytest.fixture(scope="session")
