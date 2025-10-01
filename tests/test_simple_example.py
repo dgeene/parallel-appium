@@ -13,14 +13,20 @@ def hub_url():
     """Hub URL fixture"""
     return "http://localhost:4444"
 
+@pytest.fixture(scope="session")
+def udid(request):
+    """Get the specific real phone we want to test on"""
+    return request.config.getoption("--udid")
+
 
 @pytest.fixture
-def basic_android_caps():
+def basic_android_caps(udid):
     """Basic Android capabilities for testing"""
     return {
         "platformName": "Android",
-        "automationName": "UiAutomator2", 
-        "deviceName": "Android Emulator",
+        "automationName": "UiAutomator2",
+        "udid": udid,
+        "deviceName": "Android Realdevice",
         "appPackage": "com.android.settings",  # Using Settings app as it's always available
         "appActivity": ".Settings",
         "noReset": True,

@@ -4,6 +4,10 @@ Pytest configuration for parallel Appium testing
 import pytest
 import os
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--udid", action="store", default="26131JEGR16239", help="The UDID of the device to test on"
+    )
 
 def pytest_configure(config):
     """Configure pytest for parallel execution"""
